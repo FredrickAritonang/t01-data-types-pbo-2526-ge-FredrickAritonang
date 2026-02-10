@@ -3,72 +3,76 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        
+
         String soal = sc.next();
 
-        switch (soal) {
+        if (soal.equals("Soal1")) {
+            int a = sc.nextInt();
+            int b = sc.nextInt();
 
-            case "Soal1": {
-                int a = sc.nextInt();
-                int b = sc.nextInt();
-
-                if ((b > 0 && a > Integer.MAX_VALUE - b) ||
-                    (b < 0 && a < Integer.MIN_VALUE - b)) {
-                    System.out.println("OVERFLOW");
-                } else {
-                    System.out.println(a + b);
-                }
-                break;
+            // Deteksi integer overflow tanpa long / try-catch
+            if ((b > 0 && a > Integer.MAX_VALUE - b) ||
+                (b < 0 && a < Integer.MIN_VALUE - b)) {
+                System.out.println("OVERFLOW");
+            } else {
+                System.out.println(a + b);
             }
 
-            case "Soal2": {
-                double x = sc.nextDouble();
-                double y = sc.nextDouble();
+        } else if (soal.equals("Soal2")) {
 
-                float f = (float) x + (float) y;
-                double d = x + y;
+            // Parsing TERPISAH untuk float dan double
+            String xs = sc.next();
+            String ys = sc.next();
 
-                System.out.printf("%.6f%n", Math.abs(d - f));
-                break;
+            float xf = Float.parseFloat(xs);
+            float yf = Float.parseFloat(ys);
+
+            double xd = Double.parseDouble(xs);
+            double yd = Double.parseDouble(ys);
+
+            float sumFloat = xf + yf;
+            double sumDouble = xd + yd;
+
+            double diff = Math.abs(sumDouble - sumFloat);
+            System.out.printf("%.6f%n", diff);
+
+        } else if (soal.equals("Soal3")) {
+            int N = sc.nextInt();
+
+            Integer a = N;
+            Integer b = a;
+
+            a = a + 1;
+
+            System.out.println("==: " + (a == b));
+            System.out.println("equals: " + a.equals(b));
+
+        } else if (soal.equals("Soal4")) {
+            String S = sc.next();
+
+            String a = S;
+            String b = new String(S);
+
+            a = a + "X";
+
+            System.out.println("==: " + (a == b));
+            System.out.println("equals: " + a.equals(b));
+
+        } else if (soal.equals("Soal5")) {
+            String intStr = sc.next();
+            String doubleStr = sc.next();
+            String boolStr = sc.next();
+
+            int i = Integer.parseInt(intStr);
+            double d = Double.parseDouble(doubleStr);
+            boolean flag = Boolean.parseBoolean(boolStr);
+
+            double result = i * d;
+            if (!flag) {
+                result *= -1;
             }
 
-            case "Soal3": {
-                int n = sc.nextInt();
-
-                Integer a = n;
-                Integer b = a;
-
-                a = a + 1;
-
-                System.out.println("==: " + (a == b));
-                System.out.println("equals: " + a.equals(b));
-                break;
-            }
-
-            case "Soal4": {
-                String s = sc.next();
-
-                String a = s;
-                String b = new String(s);
-
-                a = a + "X";
-
-                System.out.println("==: " + (a == b));
-                System.out.println("equals: " + a.equals(b));
-                break;
-            }
-
-            case "Soal5": {
-                int i = Integer.parseInt(sc.next());
-                double d = Double.parseDouble(sc.next());
-                boolean flag = Boolean.parseBoolean(sc.next());
-
-                double result = i * d;
-                if (!flag) result *= -1;
-
-                System.out.printf("%.2f%n", result);
-                break;
-            }
+            System.out.printf("%.2f%n", result);
         }
 
         sc.close();
